@@ -1,0 +1,9 @@
+fastapi
+uvicorn[standard]
+python-multipart
+pdfplumber
+langchain
+langchain-text-splitters
+google-generativeai
+chromadb
+python-dotenv

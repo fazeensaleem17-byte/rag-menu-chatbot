@@ -1,0 +1,324 @@
+/* AskTheMenu — plain CSS, no framework.
+   Palette: warm off-white + charcoal text + a single terracotta accent.
+   Deliberately flat/functional — no gradients, no glassmorphism. */
+
+:root {
+  --color-bg: #faf8f4;
+  --color-surface: #ffffff;
+  --color-sidebar-bg: #232019;
+  --color-sidebar-text: #f2ede4;
+  --color-sidebar-muted: #b5ac9c;
+  --color-border: #e7e1d6;
+  --color-text: #2b2823;
+  --color-text-muted: #6b6357;
+  --color-accent: #c1592c;
+  --color-accent-hover: #a84a22;
+  --color-success: #3c7a4f;
+  --color-error: #b3382c;
+  --radius: 8px;
+}
+
+.app {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* ---------------------------------------------------------------- */
+/* Sidebar                                                           */
+/* ---------------------------------------------------------------- */
+
+.sidebar {
+  width: 300px;
+  flex-shrink: 0;
+  background-color: var(--color-sidebar-bg);
+  color: var(--color-sidebar-text);
+  display: flex;
+  flex-direction: column;
+  padding: 24px 20px;
+}
+
+.sidebar-header {
+  margin-bottom: 32px;
+}
+
+.app-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.app-subtitle {
+  margin: 4px 0 0;
+  font-size: 0.82rem;
+  color: var(--color-sidebar-muted);
+}
+
+.upload-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.section-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-sidebar-muted);
+  margin-bottom: 2px;
+}
+
+.file-input {
+  color: var(--color-sidebar-text);
+  font-size: 0.85rem;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: var(--radius);
+  padding: 10px;
+  width: 100%;
+}
+
+.file-input::file-selector-button {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: var(--color-sidebar-text);
+  border: none;
+  border-radius: 4px;
+  padding: 6px 10px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.selected-filename {
+  font-size: 0.8rem;
+  color: var(--color-sidebar-muted);
+  margin: 0;
+  word-break: break-all;
+}
+
+.upload-button {
+  background-color: var(--color-accent);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius);
+  padding: 10px 14px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: background-color 0.15s ease;
+}
+
+.upload-button:hover:not(:disabled) {
+  background-color: var(--color-accent-hover);
+}
+
+.upload-button:disabled {
+  background-color: rgba(255, 255, 255, 0.12);
+  color: var(--color-sidebar-muted);
+}
+
+.status-message {
+  font-size: 0.82rem;
+  line-height: 1.4;
+  margin: 4px 0 0;
+  padding: 8px 10px;
+  border-radius: 6px;
+}
+
+.status-uploading {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--color-sidebar-text);
+}
+
+.status-success {
+  background: rgba(60, 122, 79, 0.18);
+  color: #8fd6a5;
+}
+
+.status-error {
+  background: rgba(179, 56, 44, 0.18);
+  color: #f2a49b;
+}
+
+.sidebar-footer {
+  margin-top: auto;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.hint {
+  font-size: 0.78rem;
+  color: var(--color-sidebar-muted);
+  line-height: 1.4;
+  margin: 0;
+}
+
+/* ---------------------------------------------------------------- */
+/* Chat area                                                         */
+/* ---------------------------------------------------------------- */
+
+.chat-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-bg);
+  min-width: 0;
+}
+
+.messages-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 28px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.empty-state {
+  margin: auto;
+  max-width: 360px;
+  text-align: center;
+  color: var(--color-text-muted);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.bubble-row {
+  display: flex;
+  width: 100%;
+}
+
+.bubble-row-user {
+  justify-content: flex-end;
+}
+
+.bubble-row-bot {
+  justify-content: flex-start;
+}
+
+.bubble {
+  max-width: 65%;
+  padding: 10px 14px;
+  border-radius: 14px;
+  font-size: 0.95rem;
+  line-height: 1.45;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.bubble-user {
+  background-color: var(--color-accent);
+  color: #fff;
+  border-bottom-right-radius: 4px;
+}
+
+.bubble-bot {
+  background-color: var(--color-surface);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  border-bottom-left-radius: 4px;
+}
+
+.bubble-error {
+  border-color: var(--color-error);
+  color: var(--color-error);
+}
+
+.bubble-loading {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 14px 16px;
+}
+
+.loading-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--color-text-muted);
+  animation: pulse 1.2s infinite ease-in-out;
+}
+
+.loading-dot:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.loading-dot:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes pulse {
+  0%, 80%, 100% {
+    opacity: 0.3;
+    transform: scale(0.85);
+  }
+  40% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.chat-input-form {
+  display: flex;
+  gap: 10px;
+  padding: 16px 24px;
+  border-top: 1px solid var(--color-border);
+  background-color: var(--color-surface);
+}
+
+.chat-input {
+  flex: 1;
+  padding: 12px 14px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  font-size: 0.95rem;
+  color: var(--color-text);
+  background-color: var(--color-bg);
+}
+
+.chat-input:focus {
+  outline: none;
+  border-color: var(--color-accent);
+}
+
+.chat-input:disabled {
+  color: var(--color-text-muted);
+}
+
+.send-button {
+  background-color: var(--color-accent);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius);
+  padding: 0 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: background-color 0.15s ease;
+}
+
+.send-button:hover:not(:disabled) {
+  background-color: var(--color-accent-hover);
+}
+
+.send-button:disabled {
+  background-color: var(--color-border);
+  color: var(--color-text-muted);
+}
+
+/* Small screens: stack sidebar above chat instead of side-by-side. */
+@media (max-width: 720px) {
+  .app {
+    flex-direction: column;
+    height: auto;
+    min-height: 100vh;
+  }
+
+  .sidebar {
+    width: 100%;
+  }
+
+  .chat-area {
+    height: 70vh;
+  }
+}
